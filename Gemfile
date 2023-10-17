@@ -13,7 +13,8 @@ gem 'puma', '~> 5.0'
 # gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem 'redis', '~> 4.0'
+gem 'redis-namespace'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -37,7 +38,6 @@ gem 'grape-entity', '~> 1.0'
 gem 'grape-path-helpers', '~> 1.7', '>= 1.7.1'
 gem 'grape-route-helpers', '~> 2.1'
 gem 'faraday', '~> 2.7', '>= 2.7.11'
-
 
 group :development, :test do
   gem 'debug', platforms: [:mri, :mingw, :x64_mingw]

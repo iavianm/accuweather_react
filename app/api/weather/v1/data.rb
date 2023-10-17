@@ -6,8 +6,8 @@ module Weather
       resource :weather do
         desc 'Historical Current Conditions'
         get :historical do
-          service = Services::FetchHistoricalWeatherService.new(ENV['ACCUWEATHER_API_KEY'])
-          data = service.call('294021')
+          service = Services::WeatherDataService.new('294021', ENV['ACCUWEATHER_API_KEY'])
+          data = service.fetch_data
           weather_data = data.map do |observation|
             {
               time: round_datetime(observation['LocalObservationDateTime'].split('+')[0]),

@@ -2,19 +2,26 @@ module Weather
   module V1
     module Services
       class FetchHistoricalWeatherService
-        API_URL = 'http://dataservice.accuweather.com/'.freeze
+        BASE_URL = 'http://dataservice.accuweather.com'.freeze
+        ENDPOINT = '/currentconditions/v1'.freeze
 
         def initialize(api_key)
           @api_key = api_key
         end
 
         def call(location_id)
-          conn = Faraday.new(url: API_URL)
-          response = conn.get do |req|
-            req.url("currentconditions/v1/#{location_id}/historical/24")
-            req.params['apikey'] = @api_key
-          end
+          response = conn.get("#{ENDPOINT}/#{location_id}/historical/24", apikey: @api_key)
 
+          handle_response(response)
+        end
+
+        private
+
+        def conn
+          @conn ||= Faraday.new(url: BASE_URL)
+        end
+
+        def handle_response(response)
           if response.status == 200
             JSON.parse(response.body)
           else

@@ -3,6 +3,7 @@ require 'spec_helper'
 require 'vcr'
 require 'factory_bot_rails'
 
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -13,9 +14,10 @@ require 'rspec/rails'
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into(:webmock)
+  config.allow_http_connections_when_no_cassette = false
   config.configure_rspec_metadata!
 
-  # config.filter_sensitive_data('<ACC_WEATHER_API_KEY>') { ENV['ACC_WEATHER_API_KEY'] }
+  config.filter_sensitive_data('<ACCUWEATHER_API_KEY>') { ENV['ACCUWEATHER_API_KEY'] }
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -44,6 +46,7 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include(FactoryBot::Syntax::Methods)
+  config.include(WeatherDataHelpers)
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

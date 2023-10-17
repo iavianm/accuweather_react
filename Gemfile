@@ -11,7 +11,6 @@ gem 'redis-namespace'
 gem 'bootsnap', require: false
 gem 'rack-cors'
 gem 'grape', '~> 1.8'
-gem 'grape-entity', '~> 1.0'
 gem 'grape-path-helpers', '~> 1.7', '>= 1.7.1'
 gem 'grape-route-helpers', '~> 2.1'
 gem 'faraday', '~> 2.7', '>= 2.7.11'

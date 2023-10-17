@@ -6,6 +6,8 @@ class WeatherRecord < ApplicationRecord
   private
 
   def data_is_valid_json
+    return if data.nil?
+
     JSON.parse(data)
   rescue JSON::ParserError => e
     errors.add(:data, "is not a valid JSON: #{e.message}")

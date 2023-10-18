@@ -13,9 +13,9 @@ import ConditionsByTime from "../../pages/ConditionsByTime.jsx";
 import HistoricalMin from "../../pages/HistoricalMin.jsx";
 import Health from "../../pages/Health.jsx";
 import { getEndpointStatus, getHistoricalWeather } from "../../utils/api.js";
+import NotFoundPage from "../../pages/NotFoundPage.jsx";
 
 import WeatherContext from "../../contexts/WeatherContext.jsx";
-import PageTemplate from "../PageTemplate/PageTemplate.jsx";
 
 function App() {
   const [weather, setWeather] = React.useState(null);
@@ -74,6 +74,7 @@ function App() {
               />
               <Route path="/by_time" element={<ConditionsByTime />} />
               <Route path="/health" element={<Health status={status} />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
         </div>

@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe(Weather::V1::Services::WeatherDataService) do
+  around do |example|
+    Timecop.freeze(Time.new(2023, 10, 17, 0, 0, 0)) do
+      example.run
+    end
+  end
+
   let(:api_key) { ENV['ACCUWEATHER_API_KEY'] }
   let(:city) { '294021' }
   let(:service) { described_class.new(city, api_key) }

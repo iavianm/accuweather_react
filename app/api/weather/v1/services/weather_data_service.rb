@@ -22,14 +22,14 @@ module Weather
           end
         end
 
-        private
-
         def fetch_data_from_api
           service = Services::FetchHistoricalWeatherService.new(@api_key)
           service.call(@city)
         rescue StandardError => e
           raise e
         end
+
+        private
 
         def save_data_to_redis(data, time = nil)
           $redis.set(@redis_key_data, data)
@@ -47,9 +47,9 @@ module Weather
         def data_expired?
           last_fetched = $redis.get(@redis_key_time)
 
-          return false if last_fetched && Time.now.to_i - last_fetched.to_i <= 1800
+          return false if last_fetched && Time.now.to_i - last_fetched.to_i <= 600
 
-          db_data.nil? || Time.now - db_data.created_at > 1800
+          db_data.nil? || Time.now - db_data.created_at > 600
         end
 
         def save_data_to_db(data)

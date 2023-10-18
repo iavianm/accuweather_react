@@ -1,0 +1,13 @@
+.temp {
+  margin: 0;
+  padding: 0;
+}
+
+.date {
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+.table_title {
+  font-weight: bold !important;
+}

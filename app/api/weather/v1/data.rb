@@ -19,6 +19,16 @@ module Weather
           error!({ error: e.message }, 500)
         end
       end
+
+      resource :weather do
+        desc 'Endpoint status'
+        get :status do
+          service = Services::WeatherDataService.new('294021', ENV['ACCUWEATHER_API_KEY'])
+          service.fetch_data_from_api
+        rescue StandardError => e
+          error!({ error: e.message }, 500)
+        end
+      end
     end
   end
 end

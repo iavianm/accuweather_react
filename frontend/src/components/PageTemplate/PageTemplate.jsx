@@ -11,21 +11,17 @@ function PageTemplate({ title, children }) {
   const { getWeather, getStatus } = useContext(WeatherContext);
 
   const renderWeatherButton = () => {
-    if (location.pathname === "/by_time") {
-      return null;
-    }
-
     if (location.pathname === "/health") {
       return (
         <Button variant="contained" color="primary" onClick={getStatus}>
-          Проверить статус
+          Check status
         </Button>
       );
     }
 
     return (
       <Button variant="contained" color="primary" onClick={getWeather}>
-        Получить погоду
+        Get Weather
       </Button>
     );
   };
@@ -39,7 +35,7 @@ function PageTemplate({ title, children }) {
       <div className={"temperature"}>{children}</div>
 
       <Button variant="contained" color="primary" onClick={() => navigate(-1)}>
-        Назад
+        Back
       </Button>
     </div>
   );

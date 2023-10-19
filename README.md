@@ -1,24 +1,18 @@
-# README
+# Запуск приложения
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Для запуска приложения выполните следующие шаги:
 
-Things you may want to cover:
+1. В корне приложения создайте .env с вашим ключом `ACCUWEATHER_API_KEY: your_key` от сервиса https://www.accuweather.com/ 
 
-* Ruby version
+2. Запустите приложение с помощью команды `docker-compose up`.
 
-* System dependencies
+3. После успешного запуска, приложение будет доступно по следующему URL:
+   [http://localhost:3001](http://localhost:3001)
+4. Запуск тестов `docker-compose run web rspec`
 
-* Configuration
+Приложение работает в режиме разработки (dev mode).
 
-* Database creation
+## Эндпоинты "weather"
+GET http://localhost:4001/weather/historical
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+GET http://localhost:4001/weather/status

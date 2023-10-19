@@ -1,0 +1,52 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: accuweather_development
+      POSTGRES_DB_TEST: accuweather_test
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - default
+
+  redis:
+    image: redis:latest
+    networks:
+      - default
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    ports:
+      - "4001:4001"
+    depends_on:
+      - db
+      - redis
+    command: ["./wait-for-it.sh", "db:5432", "--", "sh", "-c", "rm -f /weather_app/tmp/pids/server.pid && bundle exec rails db:migrate && rails s -p 4001 -b '0.0.0.0'"]
+    networks:
+      - default
+    environment:
+      - REDIS_HOST=redis
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - web
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    networks:
+      - default
+
+volumes:
+  pgdata1:
+  pgdata_test:
+
+networks:
+  default:
